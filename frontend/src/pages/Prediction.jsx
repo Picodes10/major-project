@@ -4,11 +4,9 @@ import { useState } from "react";
 import axios from "axios";
 
 const diseaseInputs = {
-    "liver_disease": ["Bilirubin", "Albumin", "ALP", "ALT", "AST"],
     "heart_disease": ["Age", "Cholesterol", "Blood Pressure", "ECG"],
     "diabetes": ["Glucose", "BMI", "Insulin", "Age"],
     "parkinsons": ["Tremor", "Voice Pitch", "Muscle Stiffness"],
-    "stroke_risk": ["Age", "BMI", "Blood Pressure", "Heart Disease History"]
 };
 
 const Prediction = () => {
@@ -22,8 +20,15 @@ const Prediction = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post(`https://your-api-url/predict/${disease}`, formData);
-        navigate("/result", { state: { prediction: response.data } });
+        try {
+            const response = await axios.post(
+                `https://your-backend-url.com/predict/${disease}`,
+                { features: Object.values(formData) }
+            );
+            navigate("/result", { state: { prediction: response.data } });
+        } catch (error) {
+            console.error("Prediction failed", error);
+        }
     };
 
     return (
