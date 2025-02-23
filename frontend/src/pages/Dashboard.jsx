@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const diseases = ["Liver Disease", "Heart Disease", "Diabetes", "Parkinson's", "Stroke Risk"];
+const diseases = ["Heart Disease", "Diabetes", "Parkinson's"];
 
 export default function Dashboard() {
     const navigate = useNavigate();
